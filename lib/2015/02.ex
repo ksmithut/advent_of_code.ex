@@ -58,11 +58,7 @@ solution 2015, 2 do
   end
 
   defp ribbon(sides) do
-    sides
-    |> Enum.sort(:asc)
-    |> Enum.take(2)
-    |> Enum.sum()
-    |> Kernel.*(2)
-    |> Kernel.+(Enum.product(sides))
+    [a, b, _c] = Enum.sort(sides, :asc)
+    (a + b) * 2 + Enum.product(sides)
   end
 end
