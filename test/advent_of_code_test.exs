@@ -5,7 +5,8 @@ defmodule AdventOfCodeTest do
   # advent_test 2015, 1
   # advent_test 2015, 2
   # advent_test 2015, 3
-  advent_test 2015, 4
+  # advent_test 2015, 4
+  advent_test 2015, 5
 
   # advent_test 2016, 1
 
