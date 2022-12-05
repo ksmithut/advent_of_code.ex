@@ -8,7 +8,8 @@ defmodule AdventOfCodeTest do
   # advent_test 2015, 4
   # advent_test 2015, 5
   # advent_test 2015, 6
-  advent_test 2015, 7
+  # advent_test 2015, 7
+  # advent_test 2015, 8
 
   # advent_test 2016, 1
 
@@ -26,7 +27,7 @@ defmodule AdventOfCodeTest do
   # advent_test 2022, 2
   # advent_test 2022, 3
   # advent_test 2022, 4
-  # advent_test 2022, 5
+  advent_test 2022, 5
   # advent_test 2022, 6
   # advent_test 2022, 7
   # advent_test 2022, 8
