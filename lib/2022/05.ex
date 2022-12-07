@@ -30,7 +30,7 @@ solution 2022, 5 do
   def part_1(input) do
     input
     |> parse_input()
-    |> run(&Enum.concat(Enum.reverse(&1), &2))
+    |> run(&Enum.reverse/1)
   end
 
   defp parse_input(input) do
@@ -61,7 +61,7 @@ solution 2022, 5 do
     instructions
     |> String.split("\n", trim: true)
     |> Enum.map(fn line ->
-      [_, amount, _, from, _, to] = String.split(line)
+      ["move", amount, "from", from, "to", to] = String.split(line)
 
       [amount, from, to]
       |> Enum.map(&String.to_integer/1)
@@ -83,7 +83,7 @@ solution 2022, 5 do
 
       state
       |> Map.put(from, rest)
-      |> Map.update!(to, &on_update.(to_move, &1))
+      |> Map.update!(to, &Enum.concat(on_update.(to_move), &1))
     end)
     |> print_top()
   end
@@ -98,6 +98,6 @@ solution 2022, 5 do
   def part_2(input) do
     input
     |> parse_input()
-    |> run(&Enum.concat(&1, &2))
+    |> run(& &1)
   end
 end

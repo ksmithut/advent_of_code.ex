@@ -30,3 +30,5 @@ advent_of_code-*.tar
 
 # Advent of code input
 /input
+
+src/*.erl
