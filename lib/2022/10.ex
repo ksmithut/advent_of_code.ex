@@ -166,34 +166,23 @@ solution 2022, 10 do
   """
   def part_1(input) do
     input
-    |> run_instructions()
+    |> run()
     |> Stream.map(fn {x, cycle} -> x * cycle end)
     |> Enum.slice(19..219//40)
     |> Enum.sum()
   end
 
-  defp run_instructions(input) do
+  defp run(input) do
     input
     |> String.split("\n", trim: true)
-    |> then(&{&1, [], 1})
-    |> Stream.iterate(&run/1)
-    |> Stream.map(&elem(&1, 2))
+    |> then(&["noop" | &1])
+    |> Stream.flat_map(fn
+      "noop" -> [0]
+      "addx " <> value -> [0, String.to_integer(value)]
+    end)
+    |> Stream.scan(1, &(&1 + &2))
     |> Stream.with_index(1)
   end
-
-  defp run({instructions, queue, x}) do
-    {next, instructions} = queue_instruction(instructions)
-    {add, queue} = run_queue(queue ++ next)
-    {instructions, queue, x + add}
-  end
-
-  defp queue_instruction([]), do: {[], []}
-  defp queue_instruction(["noop" | rest]), do: {[{0, 0}], rest}
-  defp queue_instruction(["addx " <> value | rest]), do: {[{1, String.to_integer(value)}], rest}
-
-  defp run_queue([]), do: {0, []}
-  defp run_queue([{0, value} | queue]), do: {value, queue}
-  defp run_queue([{timer, value} | queue]), do: {0, [{timer - 1, value} | queue]}
 
   @doc ~S"""
       iex> sample() |> part_2()
@@ -204,7 +193,7 @@ solution 2022, 10 do
   """
   def part_2(input) do
     input
-    |> run_instructions()
+    |> run()
     |> Stream.map(fn
       {x, cycle} when rem(cycle - 1, 40) in (x - 1)..(x + 1) -> "#"
       _ -> "."
