@@ -38,10 +38,10 @@ defmodule AdventOfCodeTest do
   # advent_test 2022, 8
   # advent_test 2022, 9
   # advent_test 2022, 10
-
   # advent_test 2022, 11
-  # advent_test 2022, 12
+  advent_test 2022, 12
   # advent_test 2022, 13
+
   # advent_test 2022, 14
   # advent_test 2022, 15
   # advent_test 2022, 16
