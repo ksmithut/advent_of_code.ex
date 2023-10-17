@@ -6,5 +6,21 @@
   "Sample Function": {
     "prefix": "sample",
     "body": ["def sample do", "  \"\"\"", "  $1", "  \"\"\"", "end"]
+  },
+  "Parse Input": {
+    "prefix": "parse",
+    "body": [
+      "defp parse_input(input) do",
+      "  input",
+      "  |> String.split(\"\\n\", trim: true)",
+      "  |> Enum.map(&parse_line/1)",
+      "end",
+      " ",
+      "@line_regex ~r/^$/",
+      "defp parse_line(line) do",
+      "  [_] = Regex.run(@line_regex, line)",
+      "  {}",
+      "end"
+    ]
   }
 }

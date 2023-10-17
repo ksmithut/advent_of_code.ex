@@ -94,8 +94,8 @@ defmodule AdventOfCode do
   defp fetch_input(year, day, session) do
     Application.ensure_all_started(:inets)
     Application.ensure_all_started(:ssl)
-    url = "https://adventofcode.com/#{year}/day/#{day}/input"
-    headers = [{'Cookie', "session=#{session}"}]
+    url = ~c"https://adventofcode.com/#{year}/day/#{day}/input"
+    headers = [{~c"Cookie", ~c"session=#{session}"}]
     options = [ssl: [verify: :verify_none]]
 
     case :httpc.request(:get, {url, headers}, options, []) do
@@ -120,6 +120,7 @@ defmodule AdventOfCode do
     case File.exists?(path) do
       true ->
         IO.warn("File already exists at #{path}", [])
+        path
 
       _ ->
         :ok = File.write!(path, contents)
