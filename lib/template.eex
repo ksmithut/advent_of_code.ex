@@ -1,28 +1,34 @@
-import AdventOfCode
-
-solution <%= year %>, <%= day %> do
+defmodule Y<%= year %>.D<%= padded_day %> do
   @moduledoc """
   https://adventofcode.com/<%= year %>/day/<%= day %>
   https://adventofcode.com/<%= year %>/day/<%= day %>/input
   """
 
-  @doc ~S"""
-      iex> "" |> part_1()
-      ""
+  def input, do: Path.join(["input", "<%= year %>", "<%= padded_day %>.txt"]) |> File.read!()
 
-      iex> input() |> part_1()
-      input()
+  def sample do
+    """
+
+    """
+  end
+
+  @doc ~S"""
+      iex> sample() |> part_1()
+      sample()
+
+      #iex> input() |> part_1()
+      #input()
   """
   def part_1(input) do
     input
   end
 
   @doc ~S"""
-      iex> "" |> part_2()
-      ""
+      iex> sample() |> part_2()
+      sample()
 
-      iex> input() |> part_2()
-      input()
+      #iex> input() |> part_2()
+      #input()
   """
   def part_2(input) do
     input

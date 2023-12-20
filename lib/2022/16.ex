@@ -1,10 +1,12 @@
-import AdventOfCode
+defmodule Y2022.D16 do
+  @behaviour AdventOfCode
 
-solution 2022, 16 do
   @moduledoc """
   https://adventofcode.com/2022/day/16
   https://adventofcode.com/2022/day/16/input
   """
+
+  def input, do: Path.join(["input", "2022", "16.txt"]) |> File.read!()
 
   def sample do
     """
@@ -32,6 +34,7 @@ solution 2022, 16 do
     valves = parse_input(input)
     graph = build_graph(valves)
     {distance_graph, _} = floyd_warshall(graph)
+    distance_graph
   end
 
   defp parse_input(input) do

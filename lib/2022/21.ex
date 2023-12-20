@@ -1,10 +1,12 @@
-import AdventOfCode
+defmodule Y2022.D21 do
+  @behaviour AdventOfCode
 
-solution 2022, 21 do
   @moduledoc """
   https://adventofcode.com/2022/day/21
   https://adventofcode.com/2022/day/21/input
   """
+
+  def input, do: Path.join(["input", "2022", "21.txt"]) |> File.read!()
 
   def sample do
     """

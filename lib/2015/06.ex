@@ -1,12 +1,14 @@
-import AdventOfCode
+defmodule Y2015.D06 do
+  @behaviour AdventOfCode
 
-solution 2015, 6 do
   import String, only: [to_integer: 1]
 
   @moduledoc """
   https://adventofcode.com/2015/day/6
   https://adventofcode.com/2015/day/6/input
   """
+
+  def input, do: Path.join(["input", "2015", "06.txt"]) |> File.read!()
 
   @doc ~S"""
       iex> "turn on 0,0 through 999,999" |> part_1()

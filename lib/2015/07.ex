@@ -1,12 +1,14 @@
-import AdventOfCode
+defmodule Y2015.D07 do
+  @behaviour AdventOfCode
 
-solution 2015, 7 do
   import Bitwise
 
   @moduledoc """
   https://adventofcode.com/2015/day/7
   https://adventofcode.com/2015/day/7/input
   """
+
+  def input, do: Path.join(["input", "2015", "07.txt"]) |> File.read!()
 
   def sample() do
     """

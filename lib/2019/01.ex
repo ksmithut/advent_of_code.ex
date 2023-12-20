@@ -1,10 +1,12 @@
-import AdventOfCode
+defmodule Y2019.D01 do
+  @behaviour AdventOfCode
 
-solution 2019, 1 do
   @moduledoc """
   https://adventofcode.com/2019/day/1
   https://adventofcode.com/2019/day/1/input
   """
+
+  def input, do: Path.join(["input", "2019", "01.txt"]) |> File.read!()
 
   @doc ~S"""
       iex> "12" |> part_1()

@@ -12,6 +12,7 @@ defmodule Mix.Tasks.Exec do
       mix exec -y 2015 -d 1 -p 2 --input "()" # pass in custom input
       mix exec 2015 1 2 "()"                  # positional arguments work as well
       mix exec 7 "())("                       # if first number isn't 2015 or greater, it will assume current year
+      mix exec 2020 2 --sample                # runs year 2020 day 2 with the sample input defined by a sample function
   """
   @shortdoc "Run the given Advent of Code solution"
   use Mix.Task
@@ -36,8 +37,8 @@ defmodule Mix.Tasks.Exec do
   end
 
   def parse_args!(args) do
-    switches = [year: :integer, day: :integer, part: :integer, input: :string]
-    aliases = [y: :year, d: :day, p: :part, i: :input]
+    switches = [year: :integer, day: :integer, part: :integer, input: :string, sample: :boolean]
+    aliases = [y: :year, d: :day, p: :part, i: :input, s: :sample]
 
     opts =
       case OptionParser.parse(args, aliases: aliases, strict: switches) do
@@ -48,52 +49,26 @@ defmodule Mix.Tasks.Exec do
       end
 
     input = if opts[:input] == nil, do: nil, else: String.replace(opts[:input], "\\n", "\n")
+    input = if opts[:sample], do: :sample, else: input
 
     {opts[:year] || current_year(), opts[:day] || 1, opts[:part] || 1, input}
   end
 
   defp parse_positional_args(opts, args) do
     Enum.reduce(args, opts, fn arg, opts ->
-      parse_year(opts, arg)
+      value =
+        case Integer.parse(arg) do
+          {value, _} -> value
+          _ -> nil
+        end
+
+      cond do
+        value in 2015..3000 and opts[:year] == nil -> Keyword.put(opts, :year, value)
+        value in 1..25 and opts[:day] == nil -> Keyword.put(opts, :day, value)
+        value in 1..2 and opts[:part] == nil -> Keyword.put(opts, :part, value)
+        opts[:input] == nil -> Keyword.put(opts, :input, arg)
+        true -> Mix.raise("Unknown arg: #{arg}")
+      end
     end)
-  end
-
-  defp parse_year(opts, arg) do
-    with nil <- opts[:year],
-         {num, _} <- Integer.parse(arg),
-         # TODO:: come back towards the end of this millenium to bump this number up
-         true <- num in 2015..3000 do
-      Keyword.put(opts, :year, num)
-    else
-      _ -> parse_day(opts, arg)
-    end
-  end
-
-  defp parse_day(opts, arg) do
-    with nil <- opts[:day],
-         {num, _} <- Integer.parse(arg),
-         true <- num in 1..25 do
-      Keyword.put(opts, :day, num)
-    else
-      _ -> parse_part(opts, arg)
-    end
-  end
-
-  defp parse_part(opts, arg) do
-    with nil <- opts[:part],
-         {num, _} <- Integer.parse(arg),
-         true <- num in 1..2 do
-      Keyword.put(opts, :part, num)
-    else
-      _ -> parse_input(opts, arg)
-    end
-  end
-
-  defp parse_input(opts, arg) do
-    with nil <- opts[:input] do
-      Keyword.put(opts, :input, arg)
-    else
-      _ -> opts
-    end
   end
 end
